@@ -3,13 +3,12 @@ package pbc.schedule.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.UserResponseDto;
 import pbc.schedule.service.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -23,6 +22,13 @@ public class UserController {
         UserResponseDto user = userService.createUser(userRequestDto.getUsername(), userRequestDto.getEmail());
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponseDto>> findAllUser() {
+        List<UserResponseDto> allUser = userService.findAllUser();
+
+        return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
 
 }

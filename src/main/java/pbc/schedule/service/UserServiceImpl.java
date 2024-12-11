@@ -6,6 +6,8 @@ import pbc.schedule.dto.response.UserResponseDto;
 import pbc.schedule.entity.User;
 import pbc.schedule.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -18,5 +20,12 @@ public class UserServiceImpl implements UserService{
         User savedUser = userRepository.save(user);
 
         return new UserResponseDto(savedUser.getPassword(), savedUser.getEmail());
+    }
+
+    @Override
+    public List<UserResponseDto> findAllUser() {
+        return userRepository.findAll().stream()
+                .map(UserResponseDto :: toDto)
+                .toList();
     }
 }
