@@ -1,10 +1,8 @@
-package pbc.schedule.service;
+package pbc.schedule.lv1.service;
 
-import pbc.schedule.dto.response.ScheduleResponseDto;
-import pbc.schedule.entity.Schedule;
+import pbc.schedule.lv1.dto.response.ScheduleResponseDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ScheduleService {
     ScheduleResponseDto createSchedule(String username, String title, String content);

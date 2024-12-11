@@ -1,16 +1,15 @@
-package pbc.schedule.controller;
+package pbc.schedule.lv1.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pbc.schedule.dto.request.ScheduleRequestDto;
-import pbc.schedule.dto.request.UpdatedRequestScheduleDto;
-import pbc.schedule.dto.response.ScheduleResponseDto;
-import pbc.schedule.service.ScheduleService;
+import pbc.schedule.lv1.dto.request.ScheduleRequestDto;
+import pbc.schedule.lv1.dto.request.UpdatedRequestScheduleDto;
+import pbc.schedule.lv1.dto.response.ScheduleResponseDto;
+import pbc.schedule.lv1.service.ScheduleService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/schedule")

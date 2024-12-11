@@ -1,15 +1,14 @@
-package pbc.schedule.service;
+package pbc.schedule.lv1.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pbc.schedule.dto.response.ScheduleResponseDto;
-import pbc.schedule.entity.Schedule;
-import pbc.schedule.repository.ScheduleRepository;
+import pbc.schedule.lv1.dto.response.ScheduleResponseDto;
+import pbc.schedule.lv1.entity.Schedule;
+import pbc.schedule.lv1.repository.ScheduleRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

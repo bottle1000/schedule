@@ -1,4 +1,4 @@
-package pbc.schedule.entity;
+package pbc.schedule.lv1.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,9 +13,7 @@ public class Schedule extends ScheduleBaseEntity {
     private Long id;
 
     private String username;
-
     private String title;
-
     private String content;
 
     public Schedule() {
