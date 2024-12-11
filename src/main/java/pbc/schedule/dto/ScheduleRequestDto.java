@@ -2,6 +2,7 @@ package pbc.schedule.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import pbc.schedule.entity.Schedule;
 
 @Getter
 @AllArgsConstructor
