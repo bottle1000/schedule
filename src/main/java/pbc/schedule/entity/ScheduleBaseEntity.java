@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
+public abstract class ScheduleBaseEntity {
 
     @CreatedDate
     @Column(updatable = false)
