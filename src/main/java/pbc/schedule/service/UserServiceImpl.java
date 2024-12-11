@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
         User user = new User(username, email);
         User savedUser = userRepository.save(user);
 
-        return new UserResponseDto(savedUser.getPassword(), savedUser.getEmail());
+        return new UserResponseDto(savedUser.getUsername(), savedUser.getEmail());
     }
 
     @Override
