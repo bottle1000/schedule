@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pbc.schedule.dto.request.ScheduleRequestDto;
+import pbc.schedule.dto.request.UpdatedRequestScheduleDto;
 import pbc.schedule.dto.response.ScheduleResponseDto;
 import pbc.schedule.service.ScheduleService;
 
@@ -38,5 +39,12 @@ public class ScheduleController {
         ScheduleResponseDto byIdSchedule = scheduleService.findByIdSchedule(id);
 
         return new ResponseEntity<>(byIdSchedule, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updatedByIdSchedule(@PathVariable Long id, @RequestBody UpdatedRequestScheduleDto dto) {
+        scheduleService.updatedByIdSchedule(id, dto.getContent());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

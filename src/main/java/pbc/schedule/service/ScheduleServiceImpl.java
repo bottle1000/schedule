@@ -2,6 +2,7 @@ package pbc.schedule.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pbc.schedule.dto.response.ScheduleResponseDto;
 import pbc.schedule.entity.Schedule;
 import pbc.schedule.repository.ScheduleRepository;
@@ -39,5 +40,13 @@ public class ScheduleServiceImpl implements ScheduleService{
                         schedule.getTitle(),
                         schedule.getContent()
                 );
+    }
+
+    @Transactional
+    @Override
+    public void updatedByIdSchedule(Long scheduleId, String content) {
+        Schedule findSchedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new NoSuchElementException("일정 번호가 존재하지 않습니다."));
+        findSchedule.updateContent(content);
     }
 }
