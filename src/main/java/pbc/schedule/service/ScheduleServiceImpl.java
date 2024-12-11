@@ -6,6 +6,8 @@ import pbc.schedule.dto.ScheduleResponseDto;
 import pbc.schedule.entity.Schedule;
 import pbc.schedule.repository.ScheduleRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleServiceImpl implements ScheduleService{
@@ -17,5 +19,12 @@ public class ScheduleServiceImpl implements ScheduleService{
         Schedule schedule = new Schedule(username, title, content);
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(savedSchedule.getUsername(), savedSchedule.getTitle(), savedSchedule.getContent());
+    }
+
+    @Override
+    public List<ScheduleResponseDto> findAllSchedule() {
+        return scheduleRepository.findAll().stream()
+                .map(ScheduleResponseDto::toDto)
+                .toList();
     }
 }
