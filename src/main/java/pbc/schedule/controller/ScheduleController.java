@@ -9,6 +9,7 @@ import pbc.schedule.dto.response.ScheduleResponseDto;
 import pbc.schedule.service.ScheduleService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/schedule")
@@ -30,5 +31,12 @@ public class ScheduleController {
         List<ScheduleResponseDto> allSchedule = scheduleService.findAllSchedule();
 
         return new ResponseEntity<>(allSchedule, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> findByIdSchedule(@PathVariable Long id) {
+        ScheduleResponseDto byIdSchedule = scheduleService.findByIdSchedule(id);
+
+        return new ResponseEntity<>(byIdSchedule, HttpStatus.OK);
     }
 }
