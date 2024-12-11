@@ -1,8 +1,8 @@
-package pbc.schedule.lv1.dto.response;
+package pbc.schedule.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import pbc.schedule.lv1.entity.Schedule;
+import pbc.schedule.entity.Schedule;
 
 @Getter
 @AllArgsConstructor

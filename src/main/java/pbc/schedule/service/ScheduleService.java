@@ -1,6 +1,6 @@
-package pbc.schedule.lv1.service;
+package pbc.schedule.service;
 
-import pbc.schedule.lv1.dto.response.ScheduleResponseDto;
+import pbc.schedule.dto.response.ScheduleResponseDto;
 
 import java.util.List;
 

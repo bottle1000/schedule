@@ -1,7 +1,7 @@
-package pbc.schedule.lv1.repository;
+package pbc.schedule.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pbc.schedule.lv1.entity.Schedule;
+import pbc.schedule.entity.Schedule;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 }

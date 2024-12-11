@@ -1,4 +1,4 @@
-package pbc.schedule.lv1.dto.request;
+package pbc.schedule.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

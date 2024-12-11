@@ -1,4 +1,4 @@
-package pbc.schedule.lv1.entity;
+package pbc.schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
