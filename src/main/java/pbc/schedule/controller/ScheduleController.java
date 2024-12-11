@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pbc.schedule.dto.ScheduleRequestDto;
-import pbc.schedule.dto.ScheduleResponseDto;
+import pbc.schedule.dto.request.ScheduleRequestDto;
+import pbc.schedule.dto.response.ScheduleResponseDto;
 import pbc.schedule.service.ScheduleService;
 
 import java.util.List;
