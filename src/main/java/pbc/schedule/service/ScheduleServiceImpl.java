@@ -49,4 +49,9 @@ public class ScheduleServiceImpl implements ScheduleService{
                 .orElseThrow(() -> new NoSuchElementException("일정 번호가 존재하지 않습니다."));
         findSchedule.updateContent(content);
     }
+
+    @Override
+    public void deleteByIdSchedule(Long scheduleId) {
+        scheduleRepository.deleteById(scheduleId);
+    }
 }
