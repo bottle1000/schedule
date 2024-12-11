@@ -8,11 +8,10 @@ import pbc.schedule.entity.Schedule;
 @AllArgsConstructor
 public class ScheduleResponseDto {
 
-    private String username;
     private String title;
     private String content;
 
     public static ScheduleResponseDto toDto(Schedule schedule) {
-        return new ScheduleResponseDto(schedule.getUsername(), schedule.getTitle(), schedule.getContent());
+        return new ScheduleResponseDto(schedule.getTitle(), schedule.getContent());
     }
 }

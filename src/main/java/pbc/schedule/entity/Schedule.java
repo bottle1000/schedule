@@ -22,13 +22,14 @@ public class Schedule extends ScheduleBaseEntity {
     public Schedule() {
     }
 
-//    public Schedule(String username, String title, String content) {
-//        this.username = username;
-//        this.title = title;
-//        this.content = content;
-//    }
+    public Schedule(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public void updateContent(String content) {
         this.content = content;
