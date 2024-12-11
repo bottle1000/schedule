@@ -9,4 +9,6 @@ public interface UserService {
     UserResponseDto createUser(String username, String email);
 
     List<UserResponseDto> findAllUser();
+
+    UserResponseDto findByIdUser(Long userId);
 }

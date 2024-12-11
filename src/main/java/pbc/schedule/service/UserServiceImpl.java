@@ -7,6 +7,7 @@ import pbc.schedule.entity.User;
 import pbc.schedule.repository.UserRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -28,4 +29,14 @@ public class UserServiceImpl implements UserService{
                 .map(UserResponseDto :: toDto)
                 .toList();
     }
+
+    @Override
+    public UserResponseDto findByIdUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("조회된 회원이 존재하지 않습니다."));
+
+        return new UserResponseDto(user.getUsername(), user.getEmail());
+    }
+
+
 }
