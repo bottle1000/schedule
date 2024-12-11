@@ -38,5 +38,10 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(user.getUsername(), user.getEmail());
     }
 
+    @Override
+    public void deleteByIdUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
 
 }
