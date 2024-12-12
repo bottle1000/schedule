@@ -26,11 +26,23 @@ public class UserServiceImpl implements UserService{
         return new UserResponseDto(savedUser.getUsername(), savedUser.getEmail());
     }
 
+    /**
+     * 로그인 기능
+     * @param email : /login 요청 받은 email
+     * @param password : /login 요청 받은 password
+     * @return
+     */
     @Override
     public LoginResponseDto login(String email, String password) {
+        /**
+         * 유저Repository 에서 email을 찾고 해당 유저가 있다면 그 유저를 반환 받음
+         */
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("없는 이메일 입니다."));
 
+        /**
+         * 반환 받은 유저 객체의 password 와 요청 받은 password 를 비교함
+         */
         if (!user.getPassword().equals(password)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀빈호가 일치하지 않습니다.");
         }
