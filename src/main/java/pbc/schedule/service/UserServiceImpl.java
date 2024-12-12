@@ -1,7 +1,10 @@
 package pbc.schedule.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserResponseDto;
 import pbc.schedule.entity.User;
 import pbc.schedule.repository.UserRepository;
@@ -16,12 +19,26 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
     @Override
-    public UserResponseDto createUser(String username, String email) {
-        User user = new User(username, email);
+    public UserResponseDto createUser(String username, String email, String password) {
+        User user = new User(username, email, password);
         User savedUser = userRepository.save(user);
 
         return new UserResponseDto(savedUser.getUsername(), savedUser.getEmail());
     }
+
+    @Override
+    public LoginResponseDto login(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("없는 이메일 입니다."));
+
+        if (!user.getPassword().equals(password)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀빈호가 일치하지 않습니다.");
+        }
+
+        return new LoginResponseDto(user.getId());
+    }
+
+
 
     @Override
     public List<UserResponseDto> findAllUser() {
