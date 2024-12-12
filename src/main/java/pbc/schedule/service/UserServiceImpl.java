@@ -18,6 +18,13 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    /**
+     * 유저 생성 기능(회원가입)
+     * @param username
+     * @param email
+     * @param password
+     * @return
+     */
     @Override
     public UserResponseDto createUser(String username, String email, String password) {
         User user = new User(username, email, password);
