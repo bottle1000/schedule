@@ -20,7 +20,10 @@ public class User extends UserBaseEntity{
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private final List<Schedule> scheduleList = new ArrayList<>();
+    private List<Schedule> scheduleList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> commentList = new ArrayList<>();
 
     public User() {
     }
@@ -29,5 +32,17 @@ public class User extends UserBaseEntity{
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+
+    //연관관계 편의 메서드
+    public void addSchedule(Schedule schedule) {
+        scheduleList.add(schedule);
+        schedule.setUser(this);
+    }
+
+    public void addComment(Comment comment) {
+        commentList.add(comment);
+        comment.setUser(this);
     }
 }

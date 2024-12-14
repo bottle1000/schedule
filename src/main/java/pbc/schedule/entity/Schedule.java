@@ -3,6 +3,9 @@ package pbc.schedule.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "schedule")
@@ -15,11 +18,19 @@ public class Schedule extends ScheduleBaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     private String title;
     private String content;
 
+    @OneToMany(mappedBy = "schedule")
+    private List<Comment> commentList = new ArrayList<>();
+
     public Schedule() {
+    }
+
+    // 연관관계 편의 메서드
+    public void addComment(Comment comment) {
+        commentList.add(comment);
+        comment.setSchedule(this);
     }
 
     public Schedule(String title, String content) {
