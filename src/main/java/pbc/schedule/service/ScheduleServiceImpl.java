@@ -1,8 +1,10 @@
 package pbc.schedule.service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pbc.schedule.SessionConst;
 import pbc.schedule.dto.response.ScheduleResponseDto;
 import pbc.schedule.dto.response.UserResponseDto;
 import pbc.schedule.entity.Schedule;
@@ -21,11 +23,12 @@ public class ScheduleServiceImpl implements ScheduleService{
     private final UserRepository userRepository;
 
     @Override
-    public ScheduleResponseDto createSchedule(Long userId, String title, String content) {
+    public ScheduleResponseDto createSchedule(HttpSession session, String title, String content) {
+        Long userId = (Long) session.getAttribute(SessionConst.LOGIN_USER);
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new NoSuchElementException("없는 사용자 입니다."));
         Schedule schedule = new Schedule(title, content);
-        schedule.setUser(user);
+        user.addSchedule(schedule);
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(savedSchedule.getTitle(), savedSchedule.getContent());
     }

@@ -9,8 +9,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ScheduleRequestDto {
 
-    private Long userId; //유저 아이디 추가
-
     @NotBlank(message = "제목은 필수 입력입니다.")
     @Size(min = 1, max = 12, message = "제목은 1자 이상 12자 이하여야합니다.")
     private String title;

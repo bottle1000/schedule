@@ -1,5 +1,6 @@
 package pbc.schedule.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,9 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@Valid @RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@Valid @RequestBody ScheduleRequestDto requestDto, HttpSession session) {
         ScheduleResponseDto scheduleResponseDto
-                = scheduleService.createSchedule(requestDto.getUserId(),requestDto.getTitle(), requestDto.getContent());
+                = scheduleService.createSchedule(session,requestDto.getTitle(), requestDto.getContent());
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
     }
