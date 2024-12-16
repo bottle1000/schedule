@@ -27,10 +27,16 @@ public class Schedule extends ScheduleBaseEntity {
     public Schedule() {
     }
 
-    // 연관관계 편의 메서드
+    // 연관관계 편의 추가 메서드
     public void addComment(Comment comment) {
         commentList.add(comment);
         comment.setSchedule(this);
+    }
+
+    //연관관계 편의 삭제 메서드
+    public void removeComment(Comment comment) {
+        commentList.remove(comment);
+        comment.setSchedule(null);
     }
 
     public Schedule(String title, String content) {

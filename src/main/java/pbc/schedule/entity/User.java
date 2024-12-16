@@ -35,7 +35,7 @@ public class User extends UserBaseEntity{
     }
 
 
-    //연관관계 편의 메서드
+    //연관관계 편의 추가 메서드
     public void addSchedule(Schedule schedule) {
         scheduleList.add(schedule);
         schedule.setUser(this);
@@ -44,5 +44,16 @@ public class User extends UserBaseEntity{
     public void addComment(Comment comment) {
         commentList.add(comment);
         comment.setUser(this);
+    }
+
+    //연관관계 편의 삭제 메서드
+    public void removeSchedule(Schedule schedule) {
+        scheduleList.remove(schedule);
+        schedule.setUser(null);
+    }
+
+    public void removeComment(Comment comment) {
+        commentList.remove(comment);
+        comment.setUser(null);
     }
 }
