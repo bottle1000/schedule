@@ -47,21 +47,15 @@ public class CommentController {
         return new ResponseEntity<>(allCommentResponseDto, HttpStatus.OK);
     }
 
-//    //특정 일정의 특정 댓글 조회
-//    @GetMapping("/{commentId}")
-//    public ResponseEntity<> findCommentByScheduleIdAndCommentId(@PathVariable Long scheduleId,
-//                                                                @PathVariable Long commentId) {
-//
-//    }
-//
-//    // 특정 일정의 댓글 수정
-//    @PutMapping("/{commentId}")
-//    public ResponseEntity<> updateComment(@PathVariable Long scheduleId,
-//                                          @PathVariable Long commentId,
-//                                          @RequestBody CommentUpdateRequestDto requestDto) {
-//
-//    }
-//
+    // 특정 일정의 댓글 수정
+    @PutMapping("/{commentId}")
+    public ResponseEntity<Void> updateComment(@PathVariable Long commentId,
+                                          @RequestBody CommentUpdateRequestDto requestDto) {
+        commentService.updatedComment(commentId, requestDto.getUpdateContent());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 //    // 특정 일정의 댓글 삭제
 //    @DeleteMapping("/{commentId}")
 //    public ResponseEntity<> deleteComment(@PathVariable Long scheduleId,

@@ -3,6 +3,7 @@ package pbc.schedule.service;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pbc.schedule.dto.response.FindAllCommentResponseDto;
 import pbc.schedule.dto.response.SaveCommentResponseDto;
 import pbc.schedule.entity.Comment;
@@ -54,14 +55,14 @@ public class CommentServiceImpl implements CommentService{
         return new FindAllCommentResponseDto(findSchedule.getCommentList());
     }
 
+    @Transactional
     @Override
-    public void findCommentByScheduleIdAndCommentId(Long postId, Long scheduleId) {
+    public void updatedComment(Long commentId , String updateContent) {
 
-    }
+        Comment findComment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new NoSuchElementException("해당 댓글이 존재하지 않습니다."));
 
-    @Override
-    public void updatedComment(Long userId, Long scheduleId) {
-
+        findComment.updateContent(updateContent);
     }
 
     @Override
