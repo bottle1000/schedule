@@ -56,10 +56,11 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    // 특정 일정의 댓글 삭제
-//    @DeleteMapping("/{commentId}")
-//    public ResponseEntity<> deleteComment(@PathVariable Long scheduleId,
-//                                          @PathVariable Long commentId) {
-//
-//    }
+    // 특정 일정의 댓글 삭제
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+        commentService.deleteCommentById(commentId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

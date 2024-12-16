@@ -16,6 +16,6 @@ public interface CommentService {
     // 해당 일정에 대한 특정 댓글 수정
     void updatedComment(Long commentId , String updateContent);
 
-    // 해당 일정에 대한 특정 댓글 식별 후, 삭제
-    void deleteByIdComment(Long scheduleId, Long commentId);
+    // 해당 일정에 대한 특정 댓글 삭제
+    void deleteCommentById(Long commentId);
 }

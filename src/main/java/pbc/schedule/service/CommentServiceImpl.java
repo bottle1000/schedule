@@ -66,7 +66,17 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void deleteByIdComment(Long userId, Long commentId) {
+    public void deleteCommentById(Long commentId) {
 
+        Comment findComment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new NoSuchElementException("해당 댓글이 존재하지 않습니다."));
+
+        User user = findComment.getUser();
+        user.removeComment(findComment);
+
+        Schedule schedule = findComment.getSchedule();
+        schedule.removeComment(findComment);
+
+        commentRepository.delete(findComment);
     }
 }
