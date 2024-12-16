@@ -49,11 +49,8 @@ public class UserController {
         //세션 생성 및 사용자 정보 저장
         HttpSession session = request.getSession();
 
-        //회원 정보 조회
-        UserResponseDto loginUser = userService.findByIdUser(responseDto.getId());
-
         // Session 에 로그인 회원 정보를 저장
-        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
+        session.setAttribute(SessionConst.LOGIN_USER, responseDto.getId());
 
         //세션 ID를 쿠키에 저장
         Cookie cookie = new Cookie("session_id", session.getId());
