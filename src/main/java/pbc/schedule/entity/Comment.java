@@ -32,6 +32,10 @@ public class Comment extends CommentBaseEntity{
     public Comment() {
     }
 
+    public Comment(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
