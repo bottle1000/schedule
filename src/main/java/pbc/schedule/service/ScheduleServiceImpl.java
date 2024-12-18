@@ -2,9 +2,13 @@ package pbc.schedule.service;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pbc.schedule.SessionConst;
+import pbc.schedule.dto.response.AllScheduleDto;
 import pbc.schedule.dto.response.ScheduleResponseDto;
 import pbc.schedule.dto.response.UserResponseDto;
 import pbc.schedule.entity.Schedule;
@@ -12,6 +16,7 @@ import pbc.schedule.entity.User;
 import pbc.schedule.repository.ScheduleRepository;
 import pbc.schedule.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -34,10 +39,10 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public List<ScheduleResponseDto> findAllSchedule() {
-        return scheduleRepository.findAll().stream()
-                .map(ScheduleResponseDto::toDto)
-                .toList();
+    public Page<AllScheduleDto> findAllSchedule(int page, int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return scheduleRepository.findByPagingAllSchedule(LocalDate.now(), pageRequest);
     }
 
     @Override

@@ -1,17 +1,17 @@
 package pbc.schedule.controller;
 
+import pbc.schedule.service.ScheduleService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pbc.schedule.dto.request.ScheduleRequestDto;
 import pbc.schedule.dto.request.UpdatedRequestScheduleDto;
+import pbc.schedule.dto.response.AllScheduleDto;
 import pbc.schedule.dto.response.ScheduleResponseDto;
-import pbc.schedule.service.ScheduleService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/schedule")
@@ -29,8 +29,10 @@ public class ScheduleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedule() {
-        List<ScheduleResponseDto> allSchedule = scheduleService.findAllSchedule();
+    public ResponseEntity<Page<AllScheduleDto>> findAllSchedule(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Page<AllScheduleDto> allSchedule = scheduleService.findAllSchedule(page, size);
 
         return new ResponseEntity<>(allSchedule, HttpStatus.OK);
     }
