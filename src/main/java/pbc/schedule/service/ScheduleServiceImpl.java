@@ -42,7 +42,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     public Page<AllScheduleDto> findAllSchedule(int page, int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        return scheduleRepository.findByPagingAllSchedule(LocalDate.now(), pageRequest);
+        return scheduleRepository.findByPagingAllSchedule(pageRequest);
     }
 
     @Override

@@ -16,7 +16,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             "s.title, s.content, size(s.commentList), s.createdAt, s.updatedAt, u.username) " +
             "from Schedule s " +
             "join s.user u " +
-            "where s.updatedAt = :now " +
             "order by s.updatedAt DESC ")
-    Page<AllScheduleDto> findByPagingAllSchedule(@Param("now")LocalDate now, Pageable pageable);
+    Page<AllScheduleDto> findByPagingAllSchedule(Pageable pageable);
 }
