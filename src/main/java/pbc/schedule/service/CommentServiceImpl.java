@@ -1,6 +1,5 @@
 package pbc.schedule.service;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,13 +8,13 @@ import pbc.schedule.dto.response.SaveCommentResponseDto;
 import pbc.schedule.entity.Comment;
 import pbc.schedule.entity.Schedule;
 import pbc.schedule.entity.User;
+import pbc.schedule.exception.NotFoundCommentException;
+import pbc.schedule.exception.NotFoundScheduleIdException;
+import pbc.schedule.exception.NotFoundUserException;
 import pbc.schedule.repository.CommentRepository;
 import pbc.schedule.repository.ScheduleRepository;
 import pbc.schedule.repository.UserRepository;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +31,9 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public SaveCommentResponseDto createComment(Long userId, Long scheduleId, String commentContent) {
         Schedule findSchedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new NoSuchElementException("찾으시는 일정이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundScheduleIdException("찾으시는 일정이 존재하지 않습니다."));
         User findUser = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("해당 유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundUserException("해당 유저가 존재하지 않습니다."));
 
         Comment comment = new Comment(commentContent);
 
@@ -51,7 +50,7 @@ public class CommentServiceImpl implements CommentService{
     public FindAllCommentResponseDto findAllCommentByScheduleId(Long scheduleId) {
 
         Schedule findSchedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(()-> new NoSuchElementException("찾으시는 일정이 존재하지 않습니다."));
+                .orElseThrow(()-> new NotFoundScheduleIdException("찾으시는 일정이 존재하지 않습니다."));
         return new FindAllCommentResponseDto(findSchedule.getCommentList());
     }
 
@@ -60,7 +59,7 @@ public class CommentServiceImpl implements CommentService{
     public void updatedComment(Long commentId , String updateContent) {
 
         Comment findComment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new NoSuchElementException("해당 댓글이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundCommentException("해당 댓글이 존재하지 않습니다."));
 
         findComment.updateContent(updateContent);
     }
@@ -69,7 +68,7 @@ public class CommentServiceImpl implements CommentService{
     public void deleteCommentById(Long commentId) {
 
         Comment findComment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new NoSuchElementException("해당 댓글이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundCommentException("해당 댓글이 존재하지 않습니다."));
 
         User user = findComment.getUser();
         user.removeComment(findComment);

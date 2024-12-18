@@ -9,6 +9,9 @@ import pbc.schedule.config.PasswordEncoder;
 import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserResponseDto;
 import pbc.schedule.entity.User;
+import pbc.schedule.exception.InvalidPasswordException;
+import pbc.schedule.exception.NotFoundEmailException;
+import pbc.schedule.exception.NotFoundUserException;
 import pbc.schedule.repository.UserRepository;
 
 import java.util.List;
@@ -56,13 +59,13 @@ public class UserServiceImpl implements UserService{
          * orElseThrow를 사용하여 Optional 에서 바로 객체를 받음
          */
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NoSuchElementException("없는 이메일 입니다."));
+                .orElseThrow(() -> new NotFoundEmailException("이메일이 존재하지 않습니다."));
 
         /**
          * 반환 받은 유저 객체의 password 와 요청 받은 password 를 비교함
          */
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"비밀빈호가 일치하지 않습니다.");
+            throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
 
         return new LoginResponseDto(user.getId());
@@ -80,7 +83,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponseDto findByIdUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("조회된 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundUserException("회원이 존재하지 않습니다."));
 
         return new UserResponseDto(user.getUsername(), user.getEmail());
     }
