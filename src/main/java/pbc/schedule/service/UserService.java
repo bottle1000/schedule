@@ -1,17 +1,17 @@
 package pbc.schedule.service;
 
 import pbc.schedule.dto.response.LoginResponseDto;
-import pbc.schedule.dto.response.UserResponseDto;
+import pbc.schedule.dto.response.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserResponseDto createUser(String username, String email, String password);
+    UserDto createUser(String username, String email, String password);
 
-    List<UserResponseDto> findAllUser();
+    List<UserDto> findAllUser();
 
-    UserResponseDto findByIdUser(Long userId);
+    UserDto findByIdUser(Long userId);
 
     void deleteByIdUser(Long userId);
 

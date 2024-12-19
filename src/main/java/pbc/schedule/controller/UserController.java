@@ -13,7 +13,7 @@ import pbc.schedule.SessionConst;
 import pbc.schedule.dto.request.LoginRequestDto;
 import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.LoginResponseDto;
-import pbc.schedule.dto.response.UserResponseDto;
+import pbc.schedule.dto.response.UserDto;
 import pbc.schedule.service.UserService;
 
 import java.util.List;
@@ -27,8 +27,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
-        UserResponseDto user = userService.createUser(userRequestDto.getUsername(), userRequestDto.getEmail(), userRequestDto.getPassword());
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+        UserDto user = userService.createUser(userRequestDto.getUsername(), userRequestDto.getEmail(), userRequestDto.getPassword());
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -62,15 +62,15 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> findAllUser() {
-        List<UserResponseDto> allUser = userService.findAllUser();
+    public ResponseEntity<List<UserDto>> findAllUser() {
+        List<UserDto> allUser = userService.findAllUser();
 
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findByIdUser(@PathVariable Long id) {
-        UserResponseDto byIdUser = userService.findByIdUser(id);
+    public ResponseEntity<UserDto> findByIdUser(@PathVariable Long id) {
+        UserDto byIdUser = userService.findByIdUser(id);
 
         return new ResponseEntity<>(byIdUser, HttpStatus.OK);
     }

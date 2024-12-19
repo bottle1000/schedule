@@ -2,12 +2,10 @@ package pbc.schedule.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import pbc.schedule.config.PasswordEncoder;
 import pbc.schedule.dto.response.LoginResponseDto;
-import pbc.schedule.dto.response.UserResponseDto;
+import pbc.schedule.dto.response.UserDto;
 import pbc.schedule.entity.User;
 import pbc.schedule.exception.InvalidPasswordException;
 import pbc.schedule.exception.NotFoundEmailException;
@@ -15,7 +13,6 @@ import pbc.schedule.exception.NotFoundUserException;
 import pbc.schedule.repository.UserRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -33,7 +30,7 @@ public class UserServiceImpl implements UserService{
      * @return
      */
     @Override
-    public UserResponseDto createUser(String username, String email, String password) {
+    public UserDto createUser(String username, String email, String password) {
 
         // 평문 비밀번호 암호화
         String encodePassword = passwordEncoder.encode(password);
@@ -41,9 +38,9 @@ public class UserServiceImpl implements UserService{
         log.info("암호화 된 비밀번호 = {}", encodePassword);
 
         User user = new User(username, email, encodePassword);
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
 
-        return new UserResponseDto(savedUser.getUsername(), savedUser.getEmail());
+        return UserDto.from(user);
     }
 
     /**
@@ -74,24 +71,22 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public List<UserResponseDto> findAllUser() {
+    public List<UserDto> findAllUser() {
         return userRepository.findAll().stream()
-                .map(UserResponseDto :: toDto)
+                .map(UserDto :: from)
                 .toList();
     }
 
     @Override
-    public UserResponseDto findByIdUser(Long userId) {
+    public UserDto findByIdUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundUserException("회원이 존재하지 않습니다."));
 
-        return new UserResponseDto(user.getUsername(), user.getEmail());
+        return UserDto.from(user);
     }
 
     @Override
     public void deleteByIdUser(Long userId) {
         userRepository.deleteById(userId);
     }
-
-
 }
