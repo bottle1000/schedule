@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class AllScheduleDto {
+public class SchedulePageDto {
 
     private String title;
     private String content;

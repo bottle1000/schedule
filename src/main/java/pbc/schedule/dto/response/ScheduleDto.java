@@ -6,12 +6,15 @@ import pbc.schedule.entity.Schedule;
 
 @Getter
 @AllArgsConstructor
-public class ScheduleResponseDto {
+public class ScheduleDto {
 
     private String title;
     private String content;
 
-    public static ScheduleResponseDto toDto(Schedule schedule) {
-        return new ScheduleResponseDto(schedule.getTitle(), schedule.getContent());
+    public static ScheduleDto from(Schedule schedule) {
+        return new ScheduleDto(
+                schedule.getTitle(),
+                schedule.getContent()
+        );
     }
 }

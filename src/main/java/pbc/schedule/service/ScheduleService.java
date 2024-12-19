@@ -2,13 +2,13 @@ package pbc.schedule.service;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
-import pbc.schedule.dto.response.AllScheduleDto;
-import pbc.schedule.dto.response.ScheduleResponseDto;
+import pbc.schedule.dto.response.SchedulePageDto;
+import pbc.schedule.dto.response.ScheduleDto;
 
 public interface ScheduleService {
-    ScheduleResponseDto createSchedule(HttpSession session, String title, String content);
-    Page<AllScheduleDto> findAllSchedule(int page, int size);
-    ScheduleResponseDto findByIdSchedule(Long scheduleId);
-    void updatedByIdSchedule(Long scheduleId, String content);
+    ScheduleDto createSchedule(HttpSession session, String title, String content);
+    Page<SchedulePageDto> findAllSchedule(int page, int size);
+    ScheduleDto findByIdSchedule(Long scheduleId);
+    ScheduleDto updatedByIdSchedule(Long scheduleId, String content);
     void deleteByIdSchedule(Long scheduleId);
 }
