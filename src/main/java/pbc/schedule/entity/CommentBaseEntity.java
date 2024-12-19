@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public abstract class CommentBaseEntity {
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     private LocalDate createdAt;
 
     @LastModifiedDate

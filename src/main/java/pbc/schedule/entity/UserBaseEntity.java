@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public abstract class UserBaseEntity {
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     @Temporal(TemporalType.DATE)
     private LocalDate createdAt;
 }
