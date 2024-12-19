@@ -20,7 +20,7 @@ http://localhost:8080
 ### 1. 일정 관리 API
 
 #### 모든 일정 조회
-- **URL**: `GET /schedule`
+- **URL**: `GET /schedule?page=0&size=10`
 - **응답**:
 ```json
   {
