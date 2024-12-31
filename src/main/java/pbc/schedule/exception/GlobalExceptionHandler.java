@@ -3,8 +3,12 @@ package pbc.schedule.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
@@ -57,5 +61,17 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.NOT_FOUND.value());
         log.error(e.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * @Valid 어노테이션을 통해 검증 로직에 대한 글로벌 오류 처리
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String,String>> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        Map<String, String> errors = new HashMap<>();
+        e.getBindingResult().getFieldErrors()
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
