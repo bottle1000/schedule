@@ -39,12 +39,6 @@ public class UserController {
                                                      HttpServletRequest request) {
         //로그인 유저 조회
         LoginResponseDto responseDto = userService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
-
-        if (responseDto.getId() == null) {
-            // 로그인 실패 예외처리
-            throw new NoSuchElementException("다시 로그인 해주세요");
-        }
-
         //로그인 성공처리
         //세션 생성 및 사용자 정보 저장
         HttpSession session = request.getSession();
