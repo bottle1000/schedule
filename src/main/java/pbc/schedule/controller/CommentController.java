@@ -33,7 +33,7 @@ public class CommentController {
                                                                 HttpSession session) {
         Long userId = (Long) session.getAttribute(SessionConst.LOGIN_USER);
         SaveCommentResponseDto saveCommentResponseDto =
-                commentService.createComment(userId,scheduleId, requestDto.getContent());
+                commentService.createComment(userId,scheduleId, requestDto);
 
         return new ResponseEntity<>(saveCommentResponseDto, HttpStatus.CREATED);
     }

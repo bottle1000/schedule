@@ -9,7 +9,5 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class FindAllCommentResponseDto {
-
     private List<Comment> commentList;
-
 }

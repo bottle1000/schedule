@@ -2,10 +2,16 @@ package pbc.schedule.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import pbc.schedule.dto.request.CommentCreateRequestDto;
 
 @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+
 @Table(name = "comment")
 public class Comment extends CommentBaseEntity{
 
@@ -29,22 +35,13 @@ public class Comment extends CommentBaseEntity{
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    public Comment() {
-    }
-
-    public Comment(String commentContent) {
-        this.commentContent = commentContent;
+    public static Comment of(CommentCreateRequestDto dto, Schedule schedule, User user) {
+        return new Comment(
+                null, dto.getContent(), user, schedule
+        );
     }
 
     public void updateContent(String content) {
         this.commentContent = content;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
