@@ -15,8 +15,8 @@ public class UserDto {
         this.email = email;
     }
 
-    public static pbc.schedule.dto.response.UserDto from(User user) {
-        return new pbc.schedule.dto.response.UserDto(user.getUsername(), user.getEmail());
+    public static UserDto from(User user) {
+        return new UserDto(user.getUsername(), user.getEmail());
     }
 
 }

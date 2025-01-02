@@ -1,5 +1,6 @@
 package pbc.schedule.service;
 
+import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserDto;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
-    UserDto createUser(String username, String email, String password);
+    UserDto createUser(UserRequestDto userRequestDto);
 
     List<UserDto> findAllUser();
 

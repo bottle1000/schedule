@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pbc.schedule.config.PasswordEncoder;
+import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserDto;
 import pbc.schedule.entity.User;
 import pbc.schedule.exception.InvalidPasswordException;
 import pbc.schedule.exception.NotFoundEmailException;
 import pbc.schedule.exception.NotFoundUserException;
+import pbc.schedule.exception.ValidateEmailException;
 import pbc.schedule.repository.UserRepository;
 
 import java.util.List;
@@ -24,20 +26,20 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 유저 생성 기능(회원가입)
-     * @param username
-     * @param email
-     * @param password
-     * @return
      */
     @Override
-    public UserDto createUser(String username, String email, String password) {
+    public UserDto createUser(UserRequestDto userRequestDto) {
 
         // 평문 비밀번호 암호화
-        String encodePassword = passwordEncoder.encode(password);
-        // 암호화된 비밀번호 확인
-        log.info("암호화 된 비밀번호 = {}", encodePassword);
+        String encodePassword = passwordEncoder.encode(userRequestDto.getPassword());
 
-        User user = new User(username, email, encodePassword);
+        //중복되는 이메일인지 검증 처리
+        boolean validateEmail = userRepository.existsByEmail(userRequestDto.getEmail());
+        if (validateEmail) {
+            throw new ValidateEmailException("중복된 이메일 입니다.");
+        }
+
+        User user = User.CreateUser(userRequestDto, encodePassword);
         userRepository.save(user);
 
         return UserDto.from(user);
