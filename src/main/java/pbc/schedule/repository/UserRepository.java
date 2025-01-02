@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
+    boolean existsByEmail(String email);
 
 //    //Query 애노테이션을 사용하여 복잡한 JPQL 풀기 (3개 이상 정도 찾을 때)
 //    @Query("select u from User u where u.username = :username")
