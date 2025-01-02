@@ -23,7 +23,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleDto> createSchedule(@Valid @RequestBody ScheduleRequestDto requestDto, HttpSession session) {
         ScheduleDto scheduleDto
-                = scheduleService.createSchedule(session,requestDto.getTitle(), requestDto.getContent());
+                = scheduleService.createSchedule(session, requestDto);
 
         return new ResponseEntity<>(scheduleDto, HttpStatus.CREATED);
     }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pbc.schedule.SessionConst;
+import pbc.schedule.dto.request.ScheduleRequestDto;
 import pbc.schedule.dto.response.SchedulePageDto;
 import pbc.schedule.dto.response.ScheduleDto;
 import pbc.schedule.entity.Schedule;
@@ -24,13 +25,15 @@ public class ScheduleServiceImpl implements ScheduleService{
     private final UserRepository userRepository;
 
     @Override
-    public ScheduleDto createSchedule(HttpSession session, String title, String content) {
+    public ScheduleDto createSchedule(HttpSession session, ScheduleRequestDto scheduleRequestDto) {
         Long userId = (Long) session.getAttribute(SessionConst.LOGIN_USER);
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundUserException("없는 사용자 입니다."));
-        Schedule schedule = new Schedule(title, content);
-        user.addSchedule(schedule);
+
+        Schedule schedule = Schedule.of(scheduleRequestDto, user);
         Schedule savedSchedule = scheduleRepository.save(schedule);
+
         return ScheduleDto.from(savedSchedule);
     }
 
