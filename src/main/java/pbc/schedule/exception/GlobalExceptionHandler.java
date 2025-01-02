@@ -63,6 +63,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ValidateEmailException.class)
+    public ResponseEntity<ErrorResponse> handlerValidateEmailException(ValidateEmailException e) {
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), HttpStatus.CONFLICT.value());
+        log.error(e.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
     /**
      * @Valid 어노테이션을 통해 검증 로직에 대한 글로벌 오류 처리
      */
