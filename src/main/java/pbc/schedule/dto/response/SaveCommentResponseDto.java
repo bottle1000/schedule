@@ -14,7 +14,7 @@ public class SaveCommentResponseDto {
     private String content;
     private String author;
 
-    public static SaveCommentResponseDto from(Comment comment) {
+    public static SaveCommentResponseDto converDto(Comment comment) {
         return new SaveCommentResponseDto(
                 comment.getId(),
                 comment.getSchedule().getId(),

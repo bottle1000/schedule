@@ -34,7 +34,7 @@ public class ScheduleServiceImpl implements ScheduleService{
         Schedule schedule = Schedule.of(scheduleRequestDto, user);
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return ScheduleDto.from(savedSchedule);
+        return ScheduleDto.convertDto(savedSchedule);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     public ScheduleDto findByIdSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new NotFoundScheduleIdException("일정 번호가 존재하지 않습니다"));
-        return ScheduleDto.from(schedule);
+        return ScheduleDto.convertDto(schedule);
     }
 
     @Transactional
@@ -57,7 +57,7 @@ public class ScheduleServiceImpl implements ScheduleService{
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new NotFoundScheduleIdException("일정 번호가 존재하지 않습니다."));
         schedule.updateContent(content);
-        return ScheduleDto.from(schedule);
+        return ScheduleDto.convertDto(schedule);
     }
 
     @Override

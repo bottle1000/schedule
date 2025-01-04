@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
         User user = User.CreateUser(userRequestDto, encodePassword);
         userRepository.save(user);
 
-        return UserDto.from(user);
+        return UserDto.convertDto(user);
     }
 
     /**
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<UserDto> findAllUser() {
         return userRepository.findAll().stream()
-                .map(UserDto :: from)
+                .map(UserDto ::convertDto)
                 .toList();
     }
 
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundUserException("회원이 존재하지 않습니다."));
 
-        return UserDto.from(user);
+        return UserDto.convertDto(user);
     }
 
     @Override

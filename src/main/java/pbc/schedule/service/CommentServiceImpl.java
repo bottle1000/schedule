@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService{
 
         Comment saveComment = commentRepository.save(comment);
 
-        return SaveCommentResponseDto.from(saveComment);
+        return SaveCommentResponseDto.converDto(saveComment);
     }
 
     @Override

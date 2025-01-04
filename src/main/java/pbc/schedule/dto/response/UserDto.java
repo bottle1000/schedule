@@ -15,7 +15,7 @@ public class UserDto {
         this.email = email;
     }
 
-    public static UserDto from(User user) {
+    public static UserDto convertDto(User user) {
         return new UserDto(user.getUsername(), user.getEmail());
     }
 

@@ -11,7 +11,7 @@ public class ScheduleDto {
     private String title;
     private String content;
 
-    public static ScheduleDto from(Schedule schedule) {
+    public static ScheduleDto convertDto(Schedule schedule) {
         return new ScheduleDto(
                 schedule.getTitle(),
                 schedule.getContent()

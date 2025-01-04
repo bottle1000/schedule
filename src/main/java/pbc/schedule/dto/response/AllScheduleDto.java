@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class AllScheduleDto {
     private String title;
     private String content;
-    private int size;
+    private Long size;
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private String username;
