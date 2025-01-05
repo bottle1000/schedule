@@ -3,7 +3,9 @@ package pbc.schedule.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pbc.schedule.config.PasswordEncoder;
+import pbc.schedule.dto.request.LoginRequestDto;
+import pbc.schedule.utils.JwtUtil;
+import pbc.schedule.utils.PasswordEncoder;
 import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserDto;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     /**
      * 유저 생성 기능(회원가입)
@@ -47,27 +50,26 @@ public class UserServiceImpl implements UserService{
 
     /**
      * 로그인 기능
-     * @param email : /login 요청 받은 email
-     * @param password : /login 요청 받은 password
      * @return
      */
     @Override
-    public LoginResponseDto login(String email, String password) {
+    public String login(LoginRequestDto request) {
+
         /**
          * 유저Repository 에서 email을 찾고 해당 유저가 있다면 그 유저를 반환 받음
          * orElseThrow를 사용하여 Optional 에서 바로 객체를 받음
          */
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new NotFoundEmailException("이메일이 존재하지 않습니다."));
 
         /**
          * 반환 받은 유저 객체의 password 와 요청 받은 password 를 비교함
          */
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
 
-        return new LoginResponseDto(user.getId());
+        return jwtUtil.generateToken(user.getUsername(), user.getRole());
     }
 
 

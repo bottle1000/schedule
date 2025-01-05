@@ -1,5 +1,6 @@
 package pbc.schedule.service;
 
+import pbc.schedule.dto.request.LoginRequestDto;
 import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserDto;
@@ -16,5 +17,5 @@ public interface UserService {
 
     void deleteByIdUser(Long userId);
 
-    LoginResponseDto login(String email, String password);
+    String login(LoginRequestDto request);
 }

@@ -14,6 +14,9 @@ import pbc.schedule.dto.request.LoginRequestDto;
 import pbc.schedule.dto.request.UserRequestDto;
 import pbc.schedule.dto.response.LoginResponseDto;
 import pbc.schedule.dto.response.UserDto;
+import pbc.schedule.entity.User;
+import pbc.schedule.exception.NotFoundEmailException;
+import pbc.schedule.repository.UserRepository;
 import pbc.schedule.service.UserService;
 
 import java.util.List;
@@ -32,25 +35,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> loginUser(@Valid @RequestBody LoginRequestDto loginRequestDto,
-                                                     HttpServletResponse response,
-                                                     HttpServletRequest request) {
-        //로그인 유저 조회
-        LoginResponseDto responseDto = userService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
-        //로그인 성공처리
-        //세션 생성 및 사용자 정보 저장
-        HttpSession session = request.getSession();
+    public ResponseEntity<LoginResponseDto> loginUser(@Valid @RequestBody LoginRequestDto request) {
 
-        // Session 에 로그인 회원 정보를 저장
-        session.setAttribute(SessionConst.LOGIN_USER, responseDto.getId());
+        String token = userService.login(request);
 
-        //세션 ID를 쿠키에 저장
-        Cookie cookie = new Cookie("session_id", session.getId());
-        //쿠키 값 세팅
-        // Response Set-Cookie : session_id : UUID 형태로 전달
-        response.addCookie(cookie);
-
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponseDto(token), HttpStatus.OK);
     }
 
     @GetMapping

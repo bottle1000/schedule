@@ -1,4 +1,4 @@
-package pbc.schedule.config;
+package pbc.schedule.utils;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
